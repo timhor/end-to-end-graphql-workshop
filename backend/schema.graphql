@@ -1,0 +1,10 @@
+type Person {
+  firstName: String!
+  lastName: String!
+  fullName: String!
+}
+
+# Special GraphQL type name Query
+type Query {
+  person: Person!
+}

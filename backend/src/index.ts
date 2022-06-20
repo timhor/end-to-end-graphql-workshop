@@ -1,38 +1,14 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { loadFilesSync } from '@graphql-tools/load-files';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { ApolloServer } from 'apollo-server';
+import { join } from 'path';
+import { resolvers } from './resolvers';
 
-const typeDefs = gql`
-  type Person {
-    firstName: String!
-    lastName: String!
-    fullName: String!
-  }
+const typeDefs = loadFilesSync(join(__dirname, '..', 'schema.graphql'));
 
-  # special GraphQL type name Query
-  type Query {
-    person: Person!
-  }
-`;
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const resolvers = {
-  Query: {
-    person() {
-      return {
-        firstName: 'Tim',
-        lastName: 'Hor',
-      };
-    },
-  },
-  Person: {
-    fullName(person) {
-      return `${person.firstName} ${person.lastName}`;
-    },
-    // If there's a match for the field being requested, the default resolver
-    // just returns that field (so here we don't need resolvers for firstName
-    // and lastName)
-  },
-};
-
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ schema });
 
 server.listen().then(() => {
   console.log('Server is running');
