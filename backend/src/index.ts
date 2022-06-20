@@ -11,6 +11,6 @@ const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const server = new ApolloServer({ schema, dataSources: inMemoryDataSource });
 
-server.listen().then(() => {
-  console.log('Server is running');
+server.listen().then((info) => {
+  console.log(`Server is running at ${info.url}`);
 });
