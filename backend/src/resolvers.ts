@@ -1,24 +1,6 @@
-export const resolvers = {
-  Query: {
-    game(_parent, args, _context, _info) {
-      return {
-        id: args.id,
-        players: [],
-        state: 'WaitingForPlayers',
-        question: [],
-        answers: [],
-      };
-    },
-    games() {
-      return [
-        {
-          id: '123',
-          state: 'Completed',
-          players: [],
-          questions: [],
-          answers: [],
-        },
-      ];
-    },
-  },
+import type { Resolvers } from './generated/graphql';
+import { Query } from './query';
+
+export const resolvers: Resolvers = {
+  Query,
 };
