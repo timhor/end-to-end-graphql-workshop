@@ -1,18 +1,24 @@
 export const resolvers = {
   Query: {
-    person() {
+    game(_parent, args, _context, _info) {
       return {
-        firstName: 'Tim',
-        lastName: 'Hor',
+        id: args.id,
+        players: [],
+        state: 'WaitingForPlayers',
+        question: [],
+        answers: [],
       };
     },
-  },
-  Person: {
-    fullName(person) {
-      return `${person.firstName} ${person.lastName}`;
+    games() {
+      return [
+        {
+          id: '123',
+          state: 'Completed',
+          players: [],
+          questions: [],
+          answers: [],
+        },
+      ];
     },
-    // If there's a match for the field being requested, the default resolver
-    // just returns that field (so here we don't need resolvers for firstName
-    // and lastName)
   },
 };
